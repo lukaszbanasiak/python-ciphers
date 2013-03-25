@@ -1,19 +1,22 @@
+# -*- coding: utf-8 -*-
 from distutils.core import setup
 import py2exe
 
-setup(name = "Caeser Cipher",
-      version = "1.0",
-      options = {"py2exe" : {"compressed" : 1,
-                             "optimize" : 2,
-                             "bundle_files" : 1 }},
+properties = {'script': 'caesar.py',
+              'icon_resources': [(0, "encryption.ico")],
+              'version': "1.0",
+              'company_name': "Lukasz Banasiak @ Poznan University of Technology",
+              'copyright': "Copyright 2013 Lukasz Banasiak. All rights reserved.",
+              'name': "Caeser Cipher",
+              'description': "In cryptography a Caesar cipher is one of the simplest and most widely known encryption techniques",
+              'author': "Lukasz Banasiak",
+              'author_email': "lukasz@banasiak.me",
+              'url': "http://banasiak.me",
+              'license': "GPL"}
 
-      console=[{'script': 'caesar.py',
-               "icon_resources": [(0, "encryption.ico")]
-               }],
-      zipfile = None,
-      description = "Szyfr Cezara",
-      author = "Lukasz Banasiak",
-      author_email ="lukasz@banasiak.me",
-      license = "GPL",
-      url = "http://banasiak.me"
-      )
+setup(options={"py2exe": {"compressed": 1,
+                          "optimize": 2,
+                          "bundle_files": 1}},
+
+      console=[properties],
+      zipfile=None,)
