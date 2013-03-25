@@ -1,0 +1,1 @@
+python -OO make_exe.py py2exe
