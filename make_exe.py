@@ -2,7 +2,7 @@
 from distutils.core import setup
 import py2exe
 
-properties = {'script': 'caesar.py',
+properties = {'script': "caesar.py",
               'icon_resources': [(0, "encryption.ico")],
               'version': "1.0",
               'company_name': "Lukasz Banasiak @ Poznan University of Technology",
@@ -14,7 +14,7 @@ properties = {'script': 'caesar.py',
               'url': "http://banasiak.me",
               'license': "GPL"}
 
-setup(options={"py2exe": {"compressed": 1,
+setup(options={'py2exe': {"compressed": 1,
                           "optimize": 2,
                           "bundle_files": 1}},
 
