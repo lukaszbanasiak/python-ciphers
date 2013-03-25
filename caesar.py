@@ -1,35 +1,91 @@
 # -*- coding: utf-8 -*-
+import optparse
+import codecs
+import sys
+
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
 
-pl_lo = list('aąbcćdeęfghijklłmnńoóprsśtuwyzźż')
-pl_up = list('AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻ')
+def caesar_cipher(words, shift, lang='en'):
+    """
+    Caesar cipher.
 
-en_lo = list('abcdefghijklmnopqrstuvwxyz')
-en_up = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    Simplest and most widely known encryption techniques.
 
-def caesar_cipher_pl(words, shift):
+    :param words: string to encrypt
+    :param shift: number to rotate
+    :param lang: set alphabet to use. EN or PL
+    :return: encrypted string
+    """
+
+    if 'pl' in lang.lower():
+        alphabet = list(u'AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻ')
+    else:
+        alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+
     cipher = ''
 
     for word in words:
-        if not (word in pl_lo or word in pl_up):
+        if not word.upper() in alphabet:
             cipher += word
         else:
-            if word in pl_lo:
-                cipher += pl_lo[(pl_lo.index(word) + shift) % len(pl_lo)]
+            if word in [x.lower() for x in alphabet]:
+                cipher += alphabet[(alphabet.index(word.upper()) + shift) % len(alphabet)].lower()
             else:
-                cipher += pl_up[(pl_up.index(word) + shift) % len(pl_up)]
+                cipher += alphabet[(alphabet.index(word) + shift) % len(alphabet)]
     return cipher
 
-def caesar_cipher_en(data, shift):
-    cipher = ''
-    for d in data:
-        if (ord(d) > 64) and (ord(d) < 88) or (ord(d) > 96) and (ord(d) < 120):
-            d = chr((ord(d) + shift) % 256)
-        elif (ord(d) > 87) and (ord(d) < 91) or (ord(d) > 119) and (ord(d) < 123):
-            d = chr(((ord(d) + shift) - 26) % 256)
-        cipher += d
-    return cipher
 
 if __name__ == '__main__':
-    text = raw_input(' IN> ')
-    print 'OUT> ' + caesar_cipher_pl(text, 3)
+    parser = optparse.OptionParser(version='1.0')
+    parser.set_usage(sys.argv[0] + ' [option]')
+
+    parser.add_option('-d', dest='decrypt', action='store_true', default=False,
+                      help='tryb deszyfrowania')
+    parser.add_option('-s', dest='shift', action='store', default=3,
+                      help='liczba przesuniecia wzgledem pierwszej litery alfabetu', type="int")
+    parser.add_option('-l', dest='lang', action='store', default='pl',
+                      help='ustawienie kodowania tekstu: "pl" albo "en"')
+    parser.add_option('-f', dest='file', action='store', default=False,
+                      help='wskaz plik z tekstem do (de)szyfrowania')
+
+    (options, args) = parser.parse_args()
+
+    print ''
+    print '           Szyfr Cezara'
+    print ''
+    print '          Autor: ' + __author__
+    print ''
+    print 'Jezyk kodowania: ' + options.lang
+    print '   Przesuniecie: ' + str(options.shift)
+
+    if options.decrypt:
+        print '           Tryb: Deszyfrowanie'
+        options.shift = options.shift.__neg__()
+    else:
+        print '           Tryb: Szyfrowanie'
+
+    if options.file:
+        print ''
+        print ' IN> ' + options.file
+
+        try:
+            file_stream = codecs.open(options.file, 'r', 'dbcs')
+            file_output = codecs.open('_' + options.file, 'w', 'dbcs')
+            for line in file_stream:
+                file_output.write(caesar_cipher(line, options.shift, lang=options.lang))
+            file_stream.close()
+            file_output.close()
+        except IOError as e:
+            print "I/O error({0}): {1}".format(e.errno, e.strerror)
+            sys.exit(1)
+
+        print 'OUT> ' + '_' + options.file
+
+    else:
+        while 1:
+            print ''
+            try:
+                text = raw_input(' IN> ').decode(sys.stdin.encoding)
+                print 'OUT> ' + caesar_cipher(text, options.shift, lang=options.lang)
+            except (SystemExit, KeyboardInterrupt):
+                sys.exit(0)

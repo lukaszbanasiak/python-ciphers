@@ -2,7 +2,7 @@ from distutils.core import setup
 import py2exe
 
 setup(name = "Caeser Cipher",
-      version = "0.1",
+      version = "1.0",
       options = {"py2exe" : {"compressed" : 1,
                              "optimize" : 2,
                              "bundle_files" : 1 }},
