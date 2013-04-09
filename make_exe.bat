@@ -1,1 +1,1 @@
-python -OO make_exe.py py2exe
+for %%x in (setup_*.py) do python -OO %%x py2exe
