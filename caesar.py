@@ -5,9 +5,9 @@ import sys
 
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
 
+
 def caesar_cipher(words, shift, lang='en'):
-    """
-    Caesar cipher.
+    """Caesar cipher.
 
     Simplest and most widely known encryption techniques.
 
@@ -76,7 +76,7 @@ if __name__ == '__main__':
             file_stream.close()
             file_output.close()
         except IOError as e:
-            print "I/O error({0}): {1}".format(e.errno, e.strerror)
+            print '\nI/O error({0}): {1}'.format(e.errno, e.strerror)
             sys.exit(1)
 
         print 'OUT> ' + '_' + options.file
