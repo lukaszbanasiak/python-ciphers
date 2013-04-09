@@ -51,18 +51,17 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     print ''
-    print '           Szyfr Cezara'
+    print 'Szyfr Cezara'
     print ''
-    print '          Autor: ' + __author__
-    print ''
-    print 'Jezyk kodowania: ' + options.lang
-    print '   Przesuniecie: ' + str(options.shift)
+    print '       Autor: ' + __author__
+    print '   Kodowania: ' + options.lang
+    print 'Przesuniecie: ' + str(options.shift)
 
     if options.decrypt:
-        print '           Tryb: Deszyfrowanie'
+        print '        Tryb: Deszyfrowanie'
         options.shift = options.shift.__neg__()
     else:
-        print '           Tryb: Szyfrowanie'
+        print '        Tryb: Szyfrowanie'
 
     if options.file:
         print ''
