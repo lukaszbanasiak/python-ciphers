@@ -54,7 +54,7 @@ if __name__ == '__main__':
     print 'Szyfr Cezara'
     print ''
     print '       Autor: ' + __author__
-    print '   Kodowania: ' + options.lang
+    print '   Kodowanie: ' + options.lang
     print 'Przesuniecie: ' + str(options.shift)
 
     if options.decrypt:
