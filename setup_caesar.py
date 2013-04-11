@@ -2,7 +2,7 @@
 from distutils.core import setup
 import py2exe
 
-properties = {'script': "caesar.py",
+properties = {'script': "Caesar.py",
               'icon_resources': [(0, "encryption.ico")],
               'version': "1.0",
               'company_name': "labs @ PUT",
