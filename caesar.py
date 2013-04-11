@@ -6,7 +6,7 @@ import sys
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
 
 
-def caesar_cipher(words, shift, lang='en'):
+def caesar(words, shift, lang='en'):
     """Caesar cipher.
 
     Simplest and most widely known encryption techniques.
@@ -71,7 +71,7 @@ if __name__ == '__main__':
             file_stream = codecs.open(options.file, 'r', 'dbcs')
             file_output = codecs.open('_' + options.file, 'w', 'dbcs')
             for line in file_stream:
-                file_output.write(caesar_cipher(line, options.shift, lang=options.lang))
+                file_output.write(caesar(line, options.shift, lang=options.lang))
             file_stream.close()
             file_output.close()
         except IOError as e:
@@ -85,6 +85,6 @@ if __name__ == '__main__':
             print ''
             try:
                 text = raw_input(' IN> ').decode(sys.stdin.encoding)
-                print 'OUT> ' + caesar_cipher(text, options.shift, lang=options.lang)
+                print 'OUT> ' + caesar(text, options.shift, lang=options.lang)
             except (SystemExit, KeyboardInterrupt):
                 sys.exit(0)
