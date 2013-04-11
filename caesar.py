@@ -43,7 +43,7 @@ if __name__ == '__main__':
                       help='tryb deszyfrowania')
     parser.add_option('-s', dest='shift', action='store', default=3,
                       help='liczba przesuniecia wzgledem pierwszej litery alfabetu', type="int")
-    parser.add_option('-l', dest='lang', action='store', default='pl',
+    parser.add_option('-l', dest='lang', action='store', default='en',
                       help='ustawienie kodowania tekstu: "pl" albo "en"')
     parser.add_option('-f', dest='file', action='store', default=False,
                       help='wskaz plik z tekstem do (de)szyfrowania')
