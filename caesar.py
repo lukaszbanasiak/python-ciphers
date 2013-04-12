@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from unicodedata import normalize
 import optparse
 import codecs
 import sys
@@ -6,21 +7,27 @@ import sys
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
 
 
-def caesar(words, shift, lang='en'):
+def caesar(words, shift, mode=0):
     """Caesar cipher.
 
     Simplest and most widely known encryption techniques.
 
     :param words: string to encrypt
     :param shift: number to rotate
-    :param lang: set alphabet to use. EN or PL
+    :param mode: set alphabet to use.
+                 0 for replace diacritic marks
+                 1 for EN
+                 2 for PL
     :return: encrypted string
     """
 
-    if 'pl' in lang.lower():
+    if mode == 1:
+        alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    elif mode == 2:
         alphabet = list(u'AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻ')
     else:
         alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+        words = normalize('NFKD', words).encode('ascii', 'ignore')  # replace national characters to ASCII equivalents
 
     cipher = ''
 
@@ -36,15 +43,18 @@ def caesar(words, shift, lang='en'):
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version='1.0')
+    parser = optparse.OptionParser(version='1.1')
     parser.set_usage(sys.argv[0] + ' [option]')
 
     parser.add_option('-d', dest='decrypt', action='store_true', default=False,
                       help='tryb deszyfrowania')
     parser.add_option('-s', dest='shift', action='store', default=3,
                       help='liczba przesuniecia wzgledem pierwszej litery alfabetu', type="int")
-    parser.add_option('-l', dest='lang', action='store', default='en',
-                      help='ustawienie kodowania tekstu: "pl" albo "en"')
+    parser.add_option('-l', dest='lang', action='store', default=0,
+                      help='''ustawienie kodowania tekstu:\n
+                                    0 - zamiana znakow diakrytycznych na ich odpowiedniki\n
+                                    1 - kodowanie dla angielskiego alfabetu\n
+                                    2 - kodowanie dla polskiego alfabetu''', type="int")
     parser.add_option('-f', dest='file', action='store', default=False,
                       help='wskaz plik z tekstem do (de)szyfrowania')
 
@@ -54,7 +64,14 @@ if __name__ == '__main__':
     print 'Szyfr Cezara'
     print ''
     print '       Autor: ' + __author__
-    print '   Kodowanie: ' + options.lang
+
+    if options.lang == 1:
+        print '   Kodowanie: dla angielskiego alfabetu'
+    elif options.lang == 2:
+        print '   Kodowanie: dla polskiego alfabetu'
+    else:
+        print '   Kodowanie: zamiana znakow diakrytycznych na ich odpowiedniki'
+
     print 'Przesuniecie: ' + str(options.shift)
 
     if options.decrypt:
@@ -71,7 +88,7 @@ if __name__ == '__main__':
             file_stream = codecs.open(options.file, 'r', 'dbcs')
             file_output = codecs.open('_' + options.file, 'w', 'dbcs')
             for line in file_stream:
-                file_output.write(caesar(line, options.shift, lang=options.lang))
+                file_output.write(caesar(line, options.shift, mode=options.lang))
             file_stream.close()
             file_output.close()
         except IOError as e:
@@ -85,6 +102,6 @@ if __name__ == '__main__':
             print ''
             try:
                 text = raw_input(' IN> ').decode(sys.stdin.encoding)
-                print 'OUT> ' + caesar(text, options.shift, lang=options.lang)
+                print 'OUT> ' + caesar(text, options.shift, mode=options.lang)
             except (SystemExit, KeyboardInterrupt):
                 sys.exit(0)
