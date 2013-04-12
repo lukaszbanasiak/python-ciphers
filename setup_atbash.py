@@ -4,7 +4,7 @@ import py2exe
 
 properties = {'script': "AtBash.py",
               'icon_resources': [(0, "encryption.ico")],
-              'version': "1.0",
+              'version': "1.1",
               'company_name': "labs @ PUT",
               'copyright': "Copyright 2013 Lukasz Banasiak. All rights reserved.",
               'name': "AtBash Cipher demo",
