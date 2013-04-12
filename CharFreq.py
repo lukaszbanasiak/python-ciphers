@@ -6,6 +6,7 @@ import sys
 import re
 
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
+__version__ = '1.0'
 
 
 def count(words, all_chars=False):
@@ -35,7 +36,7 @@ def count(words, all_chars=False):
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version='1.0')
+    parser = optparse.OptionParser(version=__version__)
     parser.set_usage(sys.argv[0] + ' [option]')
 
     parser.add_option('-f', dest='file', action='store', default=False,

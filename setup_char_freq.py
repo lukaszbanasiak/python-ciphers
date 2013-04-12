@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
 import py2exe
+import CharFreq
 
 properties = {'script': "CharFreq.py",
               'icon_resources': [(0, "char_freq.ico")],
-              'version': "1.0",
+              'version': CharFreq.__version__,
               'company_name': "labs @ PUT",
               'copyright': "Copyright 2013 Lukasz Banasiak. All rights reserved.",
               'name': "Character frequency analysis demo",
