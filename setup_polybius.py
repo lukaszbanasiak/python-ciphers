@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
 import py2exe
+import Polybius
 
 properties = {'script': "Polybius.py",
               'icon_resources': [(0, "encryption.ico")],
-              'version': "1.0",
+              'version': Polybius.__version__,
               'company_name': "labs @ PUT",
               'copyright': "Copyright 2013 Lukasz Banasiak. All rights reserved.",
               'name': "Polybius square demo",

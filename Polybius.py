@@ -6,6 +6,7 @@ import sys
 import re
 
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
+__version__ = '1.0'
 
 array = [
     list('ABCDE'),
@@ -67,7 +68,7 @@ def decode(numbers):
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version='1.0')
+    parser = optparse.OptionParser(version=__version__)
     parser.set_usage(sys.argv[0] + ' [option]')
 
     parser.add_option('-d', dest='decrypt', action='store_true', default=False,
