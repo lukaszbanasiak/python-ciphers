@@ -29,10 +29,10 @@ def count(words, all_chars=False):
                 char_dict[char] += 1
 
     for char in sorted(char_dict, key=char_dict.get, reverse=True):
-        print '    %s: %d  (%.2f%%)' % (
+        print '     %s: %d  (%.2f%%)' % (
             char, char_dict[char], (float(char_dict[char])) / float(sum(char_dict.values())) * 100)
 
-    print ' Suma: %d' % (sum(char_dict.values()))
+    print '  Suma: %d' % (sum(char_dict.values()))
 
 
 if __name__ == '__main__':

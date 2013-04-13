@@ -95,9 +95,9 @@ if __name__ == '__main__':
                 text = raw_input(' IN> ').decode(sys.stdin.encoding)
                 if options.decrypt:
                     if options.verbose:
-                        print '1: %s   # po wyznaczeniu wspolrzednych' % Polybius.format_cipher(
+                        print '     1: %s   # po wyznaczeniu wspolrzednych' % Polybius.format_cipher(
                             Polybius.encode(text, array))
-                        print '2: %s   # po transformacji poziomej' % Polybius.format_cipher(
+                        print '     2: %s   # po transformacji poziomej' % Polybius.format_cipher(
                             transform_back(
                                 Polybius.encode(text, array)))
                     print 'OUT> ' + Polybius.decode(
