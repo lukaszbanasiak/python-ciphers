@@ -8,14 +8,6 @@ import re
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
 __version__ = '1.1'
 
-array = [
-    list('ABCDE'),
-    list('FGHIK'),
-    list('LMNOP'),
-    list('QRSTU'),
-    list('VWXYZ'),
-]
-
 
 def generate_array(key=''):
 
@@ -45,7 +37,7 @@ def generate_array(key=''):
     return array
 
 
-def display_array():
+def display_array(array):
 
     """Display Polybius square.
 
@@ -56,7 +48,7 @@ def display_array():
         print ' %s [%s]' % (row_label, ' '.join('%03s' % i for i in row))
 
 
-def encode(words):
+def encode(words, array):
 
     """
     Polybius square encryption.
@@ -81,7 +73,7 @@ def encode(words):
     return cipher
 
 
-def decode(numbers):
+def decode(numbers, array):
 
     """
     Polybius square decryption.
@@ -132,7 +124,7 @@ if __name__ == '__main__':
     array = generate_array(key=options.key)
 
     print ' Szachownica:'
-    display_array()
+    display_array(array)
 
     if options.file:
         print ''
@@ -143,9 +135,9 @@ if __name__ == '__main__':
             file_output = codecs.open('_' + options.file, 'w', 'dbcs')
             for line in file_stream:
                 if options.decrypt:
-                    file_output.write(decode(line))
+                    file_output.write(decode(line, array))
                 else:
-                    file_output.write(encode(line))
+                    file_output.write(encode(line, array))
             file_stream.close()
             file_output.close()
         except IOError as e:
@@ -160,8 +152,8 @@ if __name__ == '__main__':
             try:
                 text = raw_input(' IN> ').decode(sys.stdin.encoding)
                 if options.decrypt:
-                    print 'OUT> ' + decode(text)
+                    print 'OUT> ' + decode(text, array)
                 else:
-                    print 'OUT> ' + encode(text)
+                    print 'OUT> ' + encode(text, array)
             except (SystemExit, KeyboardInterrupt):
                 sys.exit(0)
