@@ -148,7 +148,7 @@ if __name__ == '__main__':
                 if options.decrypt:
                     file_output.write(decode(line, array))
                 else:
-                    file_output.write(encode(line, array))
+                    file_output.write(format_cipher(encode(line, array)))
             file_stream.close()
             file_output.close()
         except IOError as e:
@@ -163,7 +163,7 @@ if __name__ == '__main__':
             try:
                 text = raw_input(' IN> ').decode(sys.stdin.encoding)
                 if options.decrypt:
-                    print 'OUT> ' + format_cipher(decode(text, array))
+                    print 'OUT> ' + decode(text, array)
                 else:
                     print 'OUT> ' + format_cipher(encode(text, array))
             except (SystemExit, KeyboardInterrupt):
