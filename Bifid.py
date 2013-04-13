@@ -54,6 +54,11 @@ if __name__ == '__main__':
     else:
         print '        Tryb: Szyfrowanie'
 
+    if options.verbose:
+        print 'Tryb verbose: Tak'
+    else:
+        print 'Tryb verbose: Nie'
+
     array = Polybius.generate_array(key=options.key)
 
     print ' Szachownica:'
