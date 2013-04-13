@@ -6,7 +6,7 @@ import sys
 import re
 
 __author__ = 'Lukasz Banasiak <lukasz@banasiak.me>'
-__version__ = '1.0'
+__version__ = '1.1'
 
 array = [
     list('ABCDE'),
@@ -15,6 +15,45 @@ array = [
     list('QRSTU'),
     list('VWXYZ'),
 ]
+
+
+def generate_array(key=''):
+
+    """Create Polybius square with transposition.
+
+    :param key: transposition word
+    :return: array
+    """
+    alphabet = 'ABCDEFGHIKLMNOPQRSTUVWXYZ'
+    array = []
+    _tmp = []
+    key = re.sub(r'[^a-zA-Z]+', '', key)  # remove non-alpha character
+    key = key.upper()
+
+    if key:
+        for k in key:
+            alphabet = alphabet.replace(k, '')
+
+        alphabet = key + alphabet
+
+    for y in range(5):
+        for x in range(5):
+            _tmp.append(alphabet[0 + 5 * y + x])
+        array.append(_tmp)
+        _tmp = []
+
+    return array
+
+
+def display_array():
+
+    """Display Polybius square.
+
+    """
+    row_labels = ['1', '2', '3', '4', '5']
+    print '      1   2   3   4   5'
+    for row_label, row in zip(row_labels, array):
+        print ' %s [%s]' % (row_label, ' '.join('%03s' % i for i in row))
 
 
 def encode(words):
@@ -73,6 +112,8 @@ if __name__ == '__main__':
 
     parser.add_option('-d', dest='decrypt', action='store_true', default=False,
                       help='tryb deszyfrowania')
+    parser.add_option('-k', dest='key', action='store', default='', type='string',
+                      help='klucz transformacji szachownicy')
     parser.add_option('-f', dest='file', action='store', default=False,
                       help='wskaz plik z tekstem do (de)szyfrowania')
 
@@ -87,6 +128,11 @@ if __name__ == '__main__':
         print '        Tryb: Deszyfrowanie'
     else:
         print '        Tryb: Szyfrowanie'
+
+    array = generate_array(key=options.key)
+
+    print ' Szachownica:'
+    display_array()
 
     if options.file:
         print ''
