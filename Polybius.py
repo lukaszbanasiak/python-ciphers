@@ -48,6 +48,19 @@ def display_array(array):
         print ' %s [%s]' % (row_label, ' '.join('%03s' % i for i in row))
 
 
+def format_cipher(data):
+
+    """Format cipher.
+
+    Every second number put space, e.g. 112423 => 11 24 23
+
+    :param data: cipher
+    :return: cipher with spaces
+    """
+
+    return " ".join(data[i:i + 2] for i in range(0, len(data), 2))
+
+
 def encode(words, array):
 
     """
@@ -66,9 +79,7 @@ def encode(words, array):
             if word in array[i]:
                 oy = str(i + 1)
                 ox = str((array[i].index(word) + 1))
-                cipher += oy + ox + ' '
-
-    cipher = cipher[:-1]  # delete last space
+                cipher += oy + ox
 
     return cipher
 
@@ -152,8 +163,8 @@ if __name__ == '__main__':
             try:
                 text = raw_input(' IN> ').decode(sys.stdin.encoding)
                 if options.decrypt:
-                    print 'OUT> ' + decode(text, array)
+                    print 'OUT> ' + format_cipher(decode(text, array))
                 else:
-                    print 'OUT> ' + encode(text, array)
+                    print 'OUT> ' + format_cipher(encode(text, array))
             except (SystemExit, KeyboardInterrupt):
                 sys.exit(0)
