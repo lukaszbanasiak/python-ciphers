@@ -39,22 +39,29 @@ if __name__ == '__main__':
     parser = optparse.OptionParser(version=__version__,
                                    usage='Usage: %prog [options] [args]',
                                    description='In cryptanalysis, frequency analysis is the study of the frequency of letters or groups of letters in a ciphertext.')
-    parser.add_option('-f', dest='file', action='store', default=False,
-                      help='wskaz plik z tekstem')
     parser.add_option('-a', dest='allchars', action='store_true', default=False,
                       help='zliczaj wszystkie znaki')
+    parser.add_option('-c', dest='case_sensitive', action='store_true', default=False,
+                      help='rozroznianie semantyki malych i wielkich liter')
+    parser.add_option('-f', dest='file', action='store', default=False,
+                      help='wskaz plik z tekstem')
 
     (options, args) = parser.parse_args()
 
     print ''
     print 'Czestotliwosc wystepowania znakow'
     print ''
-    print 'Autor: ' + __author__
+    print '       Autor: ' + __author__
 
     if not options.allchars:
-        print ' Tryb: Zliczanie tylko liter'
+        print '        Tryb: Zliczanie tylko liter'
     else:
-        print ' Tryb: Zliczanie wszystkich znakow'
+        print '        Tryb: Zliczanie wszystkich znakow'
+
+    if options.case_sensitive:
+        print ' Case-sensi.: Tak'
+    else:
+        print ' Case-sensi.: Nie'
 
     if options.file:
         print ''
@@ -62,7 +69,10 @@ if __name__ == '__main__':
 
         try:
             file_stream = codecs.open(options.file, 'r', 'dbcs')
-            count(file_stream.read(), all_chars=options.allchars)
+            if options.case_sensitive:
+                count(file_stream.read(), all_chars=options.allchars)
+            else:
+                count(file_stream.read().upper(), all_chars=options.allchars)
             file_stream.close()
         except IOError as e:
             print '\nI/O error({0}): {1}'.format(e.errno, e.strerror)
@@ -76,4 +86,7 @@ if __name__ == '__main__':
             except (SystemExit, KeyboardInterrupt):
                 sys.exit(0)
 
-            count(text, all_chars=options.allchars)
+            if options.case_sensitive:
+                count(text, all_chars=options.allchars)
+            else:
+                count(text.upper(), all_chars=options.allchars)
