@@ -45,7 +45,7 @@ def display_array(array):
     row_labels = ['1', '2', '3', '4', '5']
     print '      1   2   3   4   5'
     for row_label, row in zip(row_labels, array):
-        print ' %s [%s]' % (row_label, ' '.join('%03s' % i for i in row))
+        print ' %s [%s  ]' % (row_label, ' '.join('%03s' % i for i in row))
 
 
 def format_cipher(data):
