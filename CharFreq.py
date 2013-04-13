@@ -36,9 +36,9 @@ def count(words, all_chars=False):
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version=__version__)
-    parser.set_usage(sys.argv[0] + ' [option]')
-
+    parser = optparse.OptionParser(version=__version__,
+                                   usage='Usage: %prog [options] [args]',
+                                   description='In cryptanalysis, frequency analysis is the study of the frequency of letters or groups of letters in a ciphertext.')
     parser.add_option('-f', dest='file', action='store', default=False,
                       help='wskaz plik z tekstem')
     parser.add_option('-a', dest='allchars', action='store_true', default=False,

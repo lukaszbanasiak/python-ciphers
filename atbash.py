@@ -43,9 +43,9 @@ def atbash(words, mode=0):
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version=__version__)
-    parser.set_usage(sys.argv[0] + ' [option]')
-
+    parser = optparse.OptionParser(version=__version__,
+                                   usage='Usage: %prog [options] [args]',
+                                   description='Atbash is a simple substitution cipher for the Hebrew alphabet.')
     parser.add_option('-d', dest='decrypt', action='store_true', default=False,
                       help='tryb deszyfrowania')
     parser.add_option('-l', dest='lang', action='store', default=0,

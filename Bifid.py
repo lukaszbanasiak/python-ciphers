@@ -30,9 +30,9 @@ def transform_back(data):
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version=__version__)
-    parser.set_usage(sys.argv[0] + ' [option]')
-
+    parser = optparse.OptionParser(version=__version__,
+                                   usage='Usage: %prog [options] [args]',
+                                   description='Bifid cipher is a cipher which combines the Polybius square with transposition, and uses fractionation to achieve diffusion.')
     parser.add_option('-d', dest='decrypt', action='store_true', default=False,
                       help='tryb deszyfrowania')
     parser.add_option('-k', dest='key', action='store', default='', type='string',
