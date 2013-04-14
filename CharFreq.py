@@ -32,7 +32,7 @@ def count(words, all_chars=False):
         print '  %s: %d  (%.2f%%)' % (
             char, char_dict[char], (float(char_dict[char])) / float(sum(char_dict.values())) * 100)
 
-    print '  +: %d' % (sum(char_dict.values()))
+    print '  +: %d' % (sum(char_dict.values()))  # TODO: more elegant functions return :)
 
 
 if __name__ == '__main__':
